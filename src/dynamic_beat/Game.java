@@ -35,8 +35,6 @@ public class Game extends Thread{
 		this.difficulty = difficulty;
 		this.musicTitle = musicTitle;
 		gameMusic = new Music(this.musicTitle,false);
-		gameMusic.start();
-		dropNotes(titleName);
 	}
 	
 	public void screenDraw(Graphics2D g) {
@@ -151,7 +149,7 @@ public class Game extends Thread{
 	
 	@Override
 	public void run() { //쓰레드를 상속받으면 run메소드가 실행
-		
+		dropNotes();
 	}
 	
 	public void close() {
@@ -159,9 +157,66 @@ public class Game extends Thread{
 		this.interrupt();
 	}
 	
-	public void dropNotes(String titleName) {
-		Note note = new Note(228,"short");
-		note.start();
-		noteList.add(note);
+	public void dropNotes() {
+		Beat[] beats = null; //노트 찍는 부분
+		if(titleName.equals("bensound-elevate")) {
+			int startTime = 8800 - Main.REACH_TIME * 1000;
+			int gaps = 1000;
+			beats = new Beat[] {
+					new Beat(startTime,"Space"),
+					new Beat(startTime+500,"Space"),
+					new Beat(startTime+1050,"Space"),
+					new Beat(startTime+1700,"Space"),
+					new Beat(startTime+2250,"Space"),
+					new Beat(startTime+2800,"Space"),
+					new Beat(startTime+3350,"Space"),
+					new Beat(startTime+3900,"Space"),
+					new Beat(startTime+4450,"Space"),
+					new Beat(startTime+5000,"Space"),
+					new Beat(startTime+5550,"Space"),
+					new Beat(startTime+6100,"Space"),
+					new Beat(startTime+6650,"Space"),
+					new Beat(startTime+7200,"Space"),
+					new Beat(startTime+7750,"Space"),
+					new Beat(startTime+8300,"Space"),
+					new Beat(startTime+8300,"Space"),
+					new Beat(startTime+8850,"S"),
+					new Beat(startTime+9400,"L"),
+					new Beat(startTime+9950,"D"),
+					new Beat(startTime+10500,"K"),
+					new Beat(startTime+11050,"F"),
+					new Beat(startTime+11600,"J"),
+			};
+		}else if (titleName.equals("bensound-erf")) {
+			int startTime = 1000 - Main.REACH_TIME * 1000;
+			beats = new Beat[] {
+					new Beat(startTime,"S"),
+			};
+		}
+		else if (titleName.equals("bensound-memories")) {
+			int startTime = 1000 - Main.REACH_TIME * 1000;
+			beats = new Beat[] {
+					new Beat(startTime,"S"),
+			};
+		}
+		int i =0;
+		gameMusic.start();
+		while (i < beats.length && !isInterrupted()) {
+			boolean dropped = false;
+			if(beats[i].getTime() <= gameMusic.getTime()) {
+				Note note = new Note(beats[i].getNoteName());
+				note.start();
+				noteList.add(note);
+				i++;
+				dropped = true;
+			}
+			if(!dropped) {
+				try {
+					Thread.sleep(5);
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

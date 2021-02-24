@@ -73,6 +73,13 @@ public class DynamicBeat extends JFrame {
 	public static Game game;
 
 	public DynamicBeat() {
+		trackList.add(new Track("elevateTitleImg.png", "elevateStartImg.png", "elevateGameImg.png",
+				"bensound-elevate.mp3", "bensound-elevate.mp3", "bensound-elevate"));
+		trackList.add(new Track("erfTitleImg.png", "erfStartImg.png", "erfGameImg.png", "bensound-erf.mp3",
+				"bensound-erf.mp3","bensound-erf"));
+		trackList.add(new Track("memoriesTitleImg.png", "memoriesStartImg.png", "memoriesGameImg.png",
+				"bensound-memories.mp3", "bensound-memories.mp3","bensound-memories"));
+		
 		setUndecorated(true);
 		setTitle("Dynamic Beat");
 		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
@@ -84,13 +91,6 @@ public class DynamicBeat extends JFrame {
 		setLayout(null);
 
 		addKeyListener(new KeyListener());
-		
-		trackList.add(new Track("elevateTitleImg.png", "elevateStartImg.png", "elevateGameImg.png",
-				"bensound-elevate.mp3", "bensound-elevate.mp3", "bensound-elevate"));
-		trackList.add(new Track("erfTitleImg.png", "erfStartImg.png", "erfGameImg.png", "bensound-erf.mp3",
-				"bensound-erf.mp3","bensound-erf"));
-		trackList.add(new Track("memoriesTitleImg.png", "memoriesStartImg.png", "memoriesGameImg.png",
-				"bensound-memories.mp3", "bensound-memories.mp3","bensound-memories"));
 		
 		introMusic.start();
 
@@ -353,6 +353,11 @@ public class DynamicBeat extends JFrame {
 			game.screenDraw(g);
 		}
 		paintComponents(g);// jframe 안에 이미지를 그려주는 것을 의미 (주고 고정되는 이미지 일때 이용, add함수 사용이 될 경우)
+		try {
+			Thread.sleep(5);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		this.repaint();
 	}
 
@@ -395,8 +400,9 @@ public class DynamicBeat extends JFrame {
 		backButton.setVisible(true);
 		bg = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage())).getImage();
 		isGameScreen = true;
-		setFocusable(true);
 		game = new Game(trackList.get(nowSelected).getTitleName(),difficulty,trackList.get(nowSelected).getGameMusic());
+		game.start();
+		setFocusable(true);
 	}
 
 	public void backMain() {
