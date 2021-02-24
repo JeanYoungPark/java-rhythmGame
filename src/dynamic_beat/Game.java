@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -12,7 +13,6 @@ public class Game extends Thread{
 	private Image gameInfoImage = new ImageIcon(Main.class.getResource("../images/gameInfo.png")).getImage();
 	private Image judgementLineImage = new ImageIcon(Main.class.getResource("../images/judgementLine.png")).getImage();
 	private Image noteRouteLineImage = new ImageIcon(Main.class.getResource("../images/noteRouteLine.png")).getImage();
-	private Image noteImage = new ImageIcon(Main.class.getResource("../images/note.png")).getImage();
 	
 	private Image noteRouteSImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
 	private Image noteRouteDImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
@@ -28,12 +28,15 @@ public class Game extends Thread{
 	private String musicTitle;
 	private Music gameMusic;
 	
+	ArrayList<Note> noteList = new ArrayList<Note>();
+	
 	public Game(String titleName, String difficulty,String musicTitle) {
 		this.titleName = titleName;
 		this.difficulty = difficulty;
 		this.musicTitle = musicTitle;
 		gameMusic = new Music(this.musicTitle,false);
 		gameMusic.start();
+		dropNotes(titleName);
 	}
 	
 	public void screenDraw(Graphics2D g) {
@@ -55,14 +58,12 @@ public class Game extends Thread{
 		g.drawImage(noteRouteLineImage, 1052, 30, null);
 		g.drawImage(gameInfoImage, 0, 660, null);
 		g.drawImage(judgementLineImage, 0, 580, null);
-		g.drawImage(noteImage, 228, 120, null);
-		g.drawImage(noteImage, 332, 580, null);
-		g.drawImage(noteImage, 436, 500, null);
-		g.drawImage(noteImage, 540, 340, null);
-		g.drawImage(noteImage, 640, 340, null);
-		g.drawImage(noteImage, 744, 325, null);
-		g.drawImage(noteImage, 848, 305, null);
-		g.drawImage(noteImage, 952, 305, null);
+		
+		for(int i = 0;i<noteList.size();i++) {
+			Note note = noteList.get(i);
+			note.screenDraw(g);
+		}
+
 		g.setColor(Color.white);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON); // ÆùÆ®±úÁüÇö»ó
 																											// ¹æÁö
@@ -156,5 +157,11 @@ public class Game extends Thread{
 	public void close() {
 		gameMusic.close();
 		this.interrupt();
+	}
+	
+	public void dropNotes(String titleName) {
+		Note note = new Note(228,"short");
+		note.start();
+		noteList.add(note);
 	}
 }
