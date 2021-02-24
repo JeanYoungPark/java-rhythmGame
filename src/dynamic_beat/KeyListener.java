@@ -1,4 +1,4 @@
-package dynamic_beat_11;
+package dynamic_beat;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

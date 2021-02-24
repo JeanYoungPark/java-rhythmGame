@@ -1,4 +1,4 @@
-package dynamic_beat_11;
+package dynamic_beat;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -22,6 +22,19 @@ public class Game extends Thread{
 	private Image noteRouteJImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
 	private Image noteRouteKImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
 	private Image noteRouteLImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
+	
+	private String titleName;
+	private String difficulty;
+	private String musicTitle;
+	private Music gameMusic;
+	
+	public Game(String titleName, String difficulty,String musicTitle) {
+		this.titleName = titleName;
+		this.difficulty = difficulty;
+		this.musicTitle = musicTitle;
+		gameMusic = new Music(this.musicTitle,false);
+		gameMusic.start();
+	}
 	
 	public void screenDraw(Graphics2D g) {
 		g.drawImage(noteRouteSImage, 228, 30, null);
@@ -54,8 +67,8 @@ public class Game extends Thread{
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON); // 폰트깨짐현상
 																											// 방지
 		g.setFont(new Font("Arial", Font.BOLD, 30));
-		g.drawString("elevate", 20, 702);
-		g.drawString("Easy", 1190, 702);
+		g.drawString(titleName, 20, 702);
+		g.drawString(difficulty, 1190, 702);
 		g.setFont(new Font("Arial", Font.PLAIN, 26));
 		g.setColor(Color.DARK_GRAY);
 		g.drawString("S", 270, 609);
@@ -138,5 +151,10 @@ public class Game extends Thread{
 	@Override
 	public void run() { //쓰레드를 상속받으면 run메소드가 실행
 		
+	}
+	
+	public void close() {
+		gameMusic.close();
+		this.interrupt();
 	}
 }

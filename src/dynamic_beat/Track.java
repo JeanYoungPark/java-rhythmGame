@@ -1,10 +1,11 @@
-package dynamic_beat_8;
+package dynamic_beat;
 
 public class Track {
 	private String titleImage;
 	private String startImage;
 	private String gameImage;
 	private String startMusic;
+	private String titleName;
 
 	public String getTitleImage() {
 		return titleImage;
@@ -45,16 +46,25 @@ public class Track {
 	public void setGameMusic(String gameMusic) {
 		this.gameMusic = gameMusic;
 	}
+	
+	public String getTitleName() {
+		return titleName;
+	}
+	
+	public void setTitleName(String titleName) {
+		this.titleName = titleName;
+	}
 
 	private String gameMusic;
 
-	public Track(String titleImage, String startImage, String gameImage, String startMusic, String gameMusic) {
+	public Track(String titleImage, String startImage, String gameImage, String startMusic, String gameMusic, String titleName) {
 		super();
 		this.titleImage = titleImage;
 		this.startImage = startImage;
 		this.gameImage = gameImage;
 		this.startMusic = startMusic;
 		this.gameMusic = gameMusic;
+		this.titleName = titleName;
 	}
 
 }

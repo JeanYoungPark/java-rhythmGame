@@ -1,12 +1,14 @@
-package dynamic_beat_6;
+package dynamic_beat;
 
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,14 +28,23 @@ public class DynamicBeat extends JFrame {
 	private ImageIcon quitBtn = new ImageIcon(Main.class.getResource("../images/quitBtn.png"));
 	private ImageIcon quitBtnOn = new ImageIcon(Main.class.getResource("../images/quitBtnOn.png"));
 
-	//화살표
+	// 화살표
 	private ImageIcon leftBtn = new ImageIcon(Main.class.getResource("../images/leftArrow.png"));
 	private ImageIcon leftBtnOn = new ImageIcon(Main.class.getResource("../images/leftArrowOn.png"));
 	private ImageIcon rightBtn = new ImageIcon(Main.class.getResource("../images/rightArrow.png"));
 	private ImageIcon rightBtnOn = new ImageIcon(Main.class.getResource("../images/rightArrowOn.png"));
+
+	// 게임 난이도 버튼
+	private ImageIcon easyBtn = new ImageIcon(Main.class.getResource("../images/easyBtn.png"));
+	private ImageIcon easyBtnOn = new ImageIcon(Main.class.getResource("../images/easyBtnOn.png"));
+	private ImageIcon hardBtn = new ImageIcon(Main.class.getResource("../images/hardBtn.png"));
+	private ImageIcon hardBtnOn = new ImageIcon(Main.class.getResource("../images/hardBtnOn.png"));
+
+	// 뒤로가기 버튼
+	private ImageIcon backBtn = new ImageIcon(Main.class.getResource("../images/backBtn.png"));
+	private ImageIcon backBtnOn = new ImageIcon(Main.class.getResource("../images/backBtnOn.png"));
+
 	
-	private Image titleImg = new ImageIcon(Main.class.getResource("../images/elevateTitleImg.png")).getImage();
-	private Image selectedImg = new ImageIcon(Main.class.getResource("../images/elevateStartImg.png")).getImage();
 	private Image bg = new ImageIcon(Main.class.getResource("../images/introBg.jpg")).getImage();
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png")));
 	private JButton exitButton = new JButton(exitBtn);
@@ -41,10 +52,25 @@ public class DynamicBeat extends JFrame {
 	private JButton quitButton = new JButton(quitBtn);
 	private JButton leftButton = new JButton(leftBtn);
 	private JButton rightButton = new JButton(rightBtn);
+	private JButton easyButton = new JButton(easyBtn);
+	private JButton hardButton = new JButton(hardBtn);
+	private JButton backButton = new JButton(backBtn);
 
 	private int mouseX, mouseY;
 
 	private boolean isMainScreen = false;
+	private boolean isGameScreen = false;
+
+	ArrayList<Track> trackList = new ArrayList<Track>();
+
+	private Image titleImg;
+	private Image selectedImg;
+	private Music selectedMusic;
+	private int nowSelected = 0;
+
+	Music introMusic = new Music("introMusic.mp3", true); // 음악파일 추가해야됨
+	
+	public static Game game;
 
 	public DynamicBeat() {
 		setUndecorated(true);
@@ -56,6 +82,17 @@ public class DynamicBeat extends JFrame {
 		setVisible(true);
 		setBackground(new Color(0, 0, 0, 0));
 		setLayout(null);
+
+		addKeyListener(new KeyListener());
+		
+		trackList.add(new Track("elevateTitleImg.png", "elevateStartImg.png", "elevateGameImg.png",
+				"bensound-elevate.mp3", "bensound-elevate.mp3", "bensound-elevate"));
+		trackList.add(new Track("erfTitleImg.png", "erfStartImg.png", "erfGameImg.png", "bensound-erf.mp3",
+				"bensound-erf.mp3","bensound-erf"));
+		trackList.add(new Track("memoriesTitleImg.png", "memoriesStartImg.png", "memoriesGameImg.png",
+				"bensound-memories.mp3", "bensound-memories.mp3","bensound-memories"));
+		
+		introMusic.start();
 
 		// 나가기 버튼 추가
 		exitButton.setBounds(1245, 0, 30, 30); // 위치 선정
@@ -106,13 +143,9 @@ public class DynamicBeat extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				startButton.setVisible(false); // 버튼 지우기
-				quitButton.setVisible(false); // 버튼 지우기
-				leftButton.setVisible(true);
-				rightButton.setVisible(true);
-				bg = new ImageIcon(Main.class.getResource("../images/mainBg.jpg")).getImage(); // 화면전환
-				isMainScreen = true;
+				enterMain();
 			}
+
 		});
 		add(startButton);
 
@@ -142,7 +175,7 @@ public class DynamicBeat extends JFrame {
 			}
 		});
 		add(quitButton);
-		
+
 		// 왼쪽 화살표 버튼 추가
 		leftButton.setVisible(false);
 		leftButton.setBounds(140, 310, 60, 60); // 위치 선정
@@ -166,11 +199,11 @@ public class DynamicBeat extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				//왼쪽 버튼 이벤트
+				selectLeft();
 			}
 		});
 		add(leftButton);
-		
+
 		// 오른쪽 화살표 버튼 추가
 		rightButton.setVisible(false);
 		rightButton.setBounds(1080, 310, 60, 60); // 위치 선정
@@ -194,11 +227,95 @@ public class DynamicBeat extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				//오른쪽 버튼 이벤트
+				selectRight();
 			}
 		});
 		add(rightButton);
-				
+
+		// 이지 버튼 추가
+		easyButton.setVisible(false);
+		easyButton.setBounds(375, 580, 260, 67); // 위치 선정
+		easyButton.setBorderPainted(false);
+		easyButton.setContentAreaFilled(false);
+		easyButton.setFocusPainted(false);
+		easyButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				easyButton.setIcon(easyBtnOn);
+				easyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // 호버시 소리 추가
+				btnOnMusic.start();
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				easyButton.setIcon(easyBtn);
+				easyButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				gameStart(nowSelected, "Easy");
+			}
+		});
+		add(easyButton);
+
+		// 하드 버튼 추가
+		hardButton.setVisible(false);
+		hardButton.setBounds(655, 580, 260, 67); // 위치 선정
+		hardButton.setBorderPainted(false);
+		hardButton.setContentAreaFilled(false);
+		hardButton.setFocusPainted(false);
+		hardButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				hardButton.setIcon(hardBtnOn);
+				hardButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // 호버시 소리 추가
+				btnOnMusic.start();
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				hardButton.setIcon(hardBtn);
+				hardButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				gameStart(nowSelected, "Hard");
+			}
+		});
+		add(hardButton);
+
+		// 뒤로가기 버튼 추가
+		backButton.setVisible(false);
+		backButton.setBounds(20, 50, 60, 60); // 위치 선정
+		backButton.setBorderPainted(false);
+		backButton.setContentAreaFilled(false);
+		backButton.setFocusPainted(false);
+		backButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				backButton.setIcon(backBtnOn);
+				backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // 호버시 소리 추가
+				btnOnMusic.start();
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				backButton.setIcon(backBtn);
+				backButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				backMain();
+			}
+		});
+		add(backButton);
+
 		// 메뉴바 배경추가
 		menuBar.setBounds(0, 0, 1280, 30);
 		menuBar.addMouseListener(new MouseAdapter() {
@@ -217,26 +334,94 @@ public class DynamicBeat extends JFrame {
 			}
 		});
 		add(menuBar);
-
-		Music introMusic = new Music("introMusic.mp3", true); // 음악파일 추가해야됨
-		introMusic.start();
 	}
 
 	public void paint(Graphics g) {
 		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 		screenGraphic = screenImage.getGraphics();
-		screenDraw(screenGraphic);
+		screenDraw((Graphics2D) screenGraphic);
 		g.drawImage(screenImage, 0, 0, null);
 	}
 
-	public void screenDraw(Graphics g) {
-		g.drawImage(bg, 0, 0, null); //add함수 사용시X, 그저 보여줄 때
+	public void screenDraw(Graphics2D g) {
+		g.drawImage(bg, 0, 0, null); // add함수 사용시X, 그저 보여줄 때
 		if (isMainScreen) {
-			g.drawImage(selectedImg, 340, 140, null);
-			g.drawImage(titleImg, 340, 80, null);
+			g.drawImage(selectedImg, 340, 110, null);
+			g.drawImage(titleImg, 340, 50, null);
+		}
+		if (isGameScreen) {
+			game.screenDraw(g);
 		}
 		paintComponents(g);// jframe 안에 이미지를 그려주는 것을 의미 (주고 고정되는 이미지 일때 이용, add함수 사용이 될 경우)
 		this.repaint();
 	}
 
+	public void selectTrack(int nowSelected) {
+		if (selectedMusic != null) {
+			selectedMusic.close();
+		}
+		titleImg = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getTitleImage()))
+				.getImage();
+		selectedImg = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getStartImage()))
+				.getImage();
+		selectedMusic = new Music(trackList.get(nowSelected).getStartMusic(), true);
+		selectedMusic.start();
+	}
+
+	public void selectLeft() {
+		if (nowSelected == 0)
+			nowSelected = trackList.size() - 1;
+		else
+			nowSelected--;
+		selectTrack(nowSelected);
+	}
+
+	public void selectRight() {
+		if (nowSelected == trackList.size() - 1)
+			nowSelected = 0;
+		else
+			nowSelected++;
+		selectTrack(nowSelected);
+	}
+
+	public void gameStart(int nowSelected, String difficulty) {
+		if (selectedMusic != null)
+			selectedMusic.close();
+		isMainScreen = false;
+		leftButton.setVisible(false);
+		rightButton.setVisible(false);
+		easyButton.setVisible(false);
+		hardButton.setVisible(false);
+		backButton.setVisible(true);
+		bg = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage())).getImage();
+		isGameScreen = true;
+		setFocusable(true);
+		game = new Game(trackList.get(nowSelected).getTitleName(),difficulty,trackList.get(nowSelected).getGameMusic());
+	}
+
+	public void backMain() {
+		isMainScreen = true;
+		leftButton.setVisible(true);
+		rightButton.setVisible(true);
+		easyButton.setVisible(true);
+		hardButton.setVisible(true);
+		backButton.setVisible(false);
+		bg = new ImageIcon(Main.class.getResource("../images/mainBg.jpg")).getImage();
+		selectTrack(nowSelected);
+		isGameScreen = false;
+		game.close();
+	}
+
+	public void enterMain() {
+		isMainScreen = true;
+		bg = new ImageIcon(Main.class.getResource("../images/mainBg.jpg")).getImage(); // 화면전환
+		startButton.setVisible(false); // 버튼 지우기
+		quitButton.setVisible(false); // 버튼 지우기
+		leftButton.setVisible(true);
+		rightButton.setVisible(true);
+		easyButton.setVisible(true);
+		hardButton.setVisible(true);
+		introMusic.close();
+		selectTrack(0);
+	}
 }
