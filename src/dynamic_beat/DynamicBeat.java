@@ -20,7 +20,7 @@ public class DynamicBeat extends JFrame {
 	private Image screenImage;
 	private Graphics screenGraphic;
 
-	// ¹öÆ° ÀÌ¹ÌÁöµé
+	// ë²„íŠ¼ ì´ë¯¸ì§€ë“¤
 	private ImageIcon exitBtn = new ImageIcon(Main.class.getResource("../images/exitBtn.png"));
 	private ImageIcon exitBtnOn = new ImageIcon(Main.class.getResource("../images/exitBtnOn.png"));
 	private ImageIcon startBtn = new ImageIcon(Main.class.getResource("../images/startBtn.png"));
@@ -28,19 +28,19 @@ public class DynamicBeat extends JFrame {
 	private ImageIcon quitBtn = new ImageIcon(Main.class.getResource("../images/quitBtn.png"));
 	private ImageIcon quitBtnOn = new ImageIcon(Main.class.getResource("../images/quitBtnOn.png"));
 
-	// È­»ìÇ¥
+	// í™”ì‚´í‘œ
 	private ImageIcon leftBtn = new ImageIcon(Main.class.getResource("../images/leftArrow.png"));
 	private ImageIcon leftBtnOn = new ImageIcon(Main.class.getResource("../images/leftArrowOn.png"));
 	private ImageIcon rightBtn = new ImageIcon(Main.class.getResource("../images/rightArrow.png"));
 	private ImageIcon rightBtnOn = new ImageIcon(Main.class.getResource("../images/rightArrowOn.png"));
 
-	// °ÔÀÓ ³­ÀÌµµ ¹öÆ°
+	// ê²Œë¦¼ ë‚œì´ë„ ë²„íŠ¼
 	private ImageIcon easyBtn = new ImageIcon(Main.class.getResource("../images/easyBtn.png"));
 	private ImageIcon easyBtnOn = new ImageIcon(Main.class.getResource("../images/easyBtnOn.png"));
 	private ImageIcon hardBtn = new ImageIcon(Main.class.getResource("../images/hardBtn.png"));
 	private ImageIcon hardBtnOn = new ImageIcon(Main.class.getResource("../images/hardBtnOn.png"));
 
-	// µÚ·Î°¡±â ¹öÆ°
+	// ë’¤ë¡œê°€ê¸° ë²„íŠ¼
 	private ImageIcon backBtn = new ImageIcon(Main.class.getResource("../images/backBtn.png"));
 	private ImageIcon backBtnOn = new ImageIcon(Main.class.getResource("../images/backBtnOn.png"));
 
@@ -68,7 +68,7 @@ public class DynamicBeat extends JFrame {
 	private Music selectedMusic;
 	private int nowSelected = 0;
 
-	Music introMusic = new Music("introMusic.mp3", true); // À½¾ÇÆÄÀÏ Ãß°¡ÇØ¾ßµÊ
+	Music introMusic = new Music("introMusic.mp3", true); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ø¾ßµï¿½
 	
 	public static Game game;
 
@@ -94,8 +94,8 @@ public class DynamicBeat extends JFrame {
 		
 		introMusic.start();
 
-		// ³ª°¡±â ¹öÆ° Ãß°¡
-		exitButton.setBounds(1245, 0, 30, 30); // À§Ä¡ ¼±Á¤
+		// ë‚˜ê°€ê¸° ë²„íŠ¼ ì¶”ê°€
+		exitButton.setBounds(1245, 0, 30, 30); // ìœ„ì¹˜ ì„ ì •
 		exitButton.setBorderPainted(false);
 		exitButton.setContentAreaFilled(false);
 		exitButton.setFocusPainted(false);
@@ -104,7 +104,7 @@ public class DynamicBeat extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 				exitButton.setIcon(exitBtnOn);
 				exitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // È£¹ö½Ã ¼Ò¸® Ãß°¡
+				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½ ï¿½ß°ï¿½
 				btnOnMusic.start();
 			}
 
@@ -121,8 +121,8 @@ public class DynamicBeat extends JFrame {
 		});
 		add(exitButton);
 
-		// ½ÃÀÛ ¹öÆ° Ãß°¡
-		startButton.setBounds(800, 400, 400, 100); // À§Ä¡ ¼±Á¤
+		// ì‹œì‘ ë²„íŠ¼ ì¶”ê°€
+		startButton.setBounds(800, 400, 400, 100); // ìœ„ì¹˜ ì„ ì •
 		startButton.setBorderPainted(false);
 		startButton.setContentAreaFilled(false);
 		startButton.setFocusPainted(false);
@@ -131,7 +131,7 @@ public class DynamicBeat extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 				startButton.setIcon(startBtnOn);
 				startButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // È£¹ö½Ã ¼Ò¸® Ãß°¡
+				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½ ï¿½ß°ï¿½
 				btnOnMusic.start();
 			}
 
@@ -149,8 +149,8 @@ public class DynamicBeat extends JFrame {
 		});
 		add(startButton);
 
-		// Á¾·á ¹öÆ° Ãß°¡
-		quitButton.setBounds(800, 530, 400, 100); // À§Ä¡ ¼±Á¤
+		// ì¢…ë£Œ ë²„íŠ¼ ì¶”ê°€
+		quitButton.setBounds(800, 530, 400, 100); // ìœ„ì¹˜ ì„ ì •
 		quitButton.setBorderPainted(false);
 		quitButton.setContentAreaFilled(false);
 		quitButton.setFocusPainted(false);
@@ -159,7 +159,7 @@ public class DynamicBeat extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 				quitButton.setIcon(quitBtnOn);
 				quitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // È£¹ö½Ã ¼Ò¸® Ãß°¡
+				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // í˜¸ë²„ì‹œ ì†Œë¦¬ ì¶”ê°€
 				btnOnMusic.start();
 			}
 
@@ -171,14 +171,14 @@ public class DynamicBeat extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// °ÔÀÓÁ¾·á ÀÌº¥Æ®
+				// ê²Œì„ ì¢…ë£Œ ì´ë²¤íŠ¸
 			}
 		});
 		add(quitButton);
 
-		// ¿ŞÂÊ È­»ìÇ¥ ¹öÆ° Ãß°¡
+		// ì™¼ìª½ í™”ì‚´í‘œ ë²„íŠ¼ ì¶”ê°€
 		leftButton.setVisible(false);
-		leftButton.setBounds(140, 310, 60, 60); // À§Ä¡ ¼±Á¤
+		leftButton.setBounds(140, 310, 60, 60); // ìœ„ì¹˜ ì„ ì •
 		leftButton.setBorderPainted(false);
 		leftButton.setContentAreaFilled(false);
 		leftButton.setFocusPainted(false);
@@ -187,7 +187,7 @@ public class DynamicBeat extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 				leftButton.setIcon(leftBtnOn);
 				leftButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // È£¹ö½Ã ¼Ò¸® Ãß°¡
+				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // í˜¸ë²„ì‹œ ì†Œë¦¬ ì¶”ê°€
 				btnOnMusic.start();
 			}
 
@@ -204,9 +204,9 @@ public class DynamicBeat extends JFrame {
 		});
 		add(leftButton);
 
-		// ¿À¸¥ÂÊ È­»ìÇ¥ ¹öÆ° Ãß°¡
+		// ì˜¤ë¥¸ìª½ í™”ì‚´í‘œ ë²„íŠ¼ ì¶”ê°€
 		rightButton.setVisible(false);
-		rightButton.setBounds(1080, 310, 60, 60); // À§Ä¡ ¼±Á¤
+		rightButton.setBounds(1080, 310, 60, 60);
 		rightButton.setBorderPainted(false);
 		rightButton.setContentAreaFilled(false);
 		rightButton.setFocusPainted(false);
@@ -215,7 +215,7 @@ public class DynamicBeat extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 				rightButton.setIcon(rightBtnOn);
 				rightButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // È£¹ö½Ã ¼Ò¸® Ãß°¡
+				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); 
 				btnOnMusic.start();
 			}
 
@@ -232,9 +232,9 @@ public class DynamicBeat extends JFrame {
 		});
 		add(rightButton);
 
-		// ÀÌÁö ¹öÆ° Ãß°¡
+		// ì´ì§€ ë²„íŠ¼ ì¶”ê°€
 		easyButton.setVisible(false);
-		easyButton.setBounds(375, 580, 260, 67); // À§Ä¡ ¼±Á¤
+		easyButton.setBounds(375, 580, 260, 67);
 		easyButton.setBorderPainted(false);
 		easyButton.setContentAreaFilled(false);
 		easyButton.setFocusPainted(false);
@@ -243,7 +243,7 @@ public class DynamicBeat extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 				easyButton.setIcon(easyBtnOn);
 				easyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // È£¹ö½Ã ¼Ò¸® Ãß°¡
+				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false);
 				btnOnMusic.start();
 			}
 
@@ -260,9 +260,9 @@ public class DynamicBeat extends JFrame {
 		});
 		add(easyButton);
 
-		// ÇÏµå ¹öÆ° Ãß°¡
+		// í•˜ë“œ ë²„íŠ¼ ì¶”ê°€
 		hardButton.setVisible(false);
-		hardButton.setBounds(655, 580, 260, 67); // À§Ä¡ ¼±Á¤
+		hardButton.setBounds(655, 580, 260, 67); 
 		hardButton.setBorderPainted(false);
 		hardButton.setContentAreaFilled(false);
 		hardButton.setFocusPainted(false);
@@ -271,7 +271,7 @@ public class DynamicBeat extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 				hardButton.setIcon(hardBtnOn);
 				hardButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // È£¹ö½Ã ¼Ò¸® Ãß°¡
+				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false);
 				btnOnMusic.start();
 			}
 
@@ -288,9 +288,9 @@ public class DynamicBeat extends JFrame {
 		});
 		add(hardButton);
 
-		// µÚ·Î°¡±â ¹öÆ° Ãß°¡
+		// ë’¤ë¡œê°€ê¸° ë²„íŠ¼ ì¶”ê°€
 		backButton.setVisible(false);
-		backButton.setBounds(20, 50, 60, 60); // À§Ä¡ ¼±Á¤
+		backButton.setBounds(20, 50, 60, 60);
 		backButton.setBorderPainted(false);
 		backButton.setContentAreaFilled(false);
 		backButton.setFocusPainted(false);
@@ -299,7 +299,7 @@ public class DynamicBeat extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 				backButton.setIcon(backBtnOn);
 				backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false); // È£¹ö½Ã ¼Ò¸® Ãß°¡
+				Music btnOnMusic = new Music("exitBtnOnMusic.mp3", false);
 				btnOnMusic.start();
 			}
 
@@ -316,7 +316,7 @@ public class DynamicBeat extends JFrame {
 		});
 		add(backButton);
 
-		// ¸Ş´º¹Ù ¹è°æÃß°¡
+		// ë©”ë‰´ë°” ë°°ê²½ì¶”ê°€
 		menuBar.setBounds(0, 0, 1280, 30);
 		menuBar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -327,7 +327,7 @@ public class DynamicBeat extends JFrame {
 		});
 		menuBar.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
-			public void mouseDragged(MouseEvent e) { // µå·¡±× ÇÒ¶§¸¶´Ù ÁÂÇ¥¸¦ ¾ò¾î¿Â´Ù.
+			public void mouseDragged(MouseEvent e) { // ë“œë˜ê·¸ í• ë•Œë§ˆë‹¤ ì¢Œí‘œë¥¼ ì–»ì–´ì˜¨ë‹¤.
 				int x = e.getXOnScreen();
 				int y = e.getYOnScreen();
 				setLocation(x - mouseX, y - mouseY);
@@ -344,7 +344,7 @@ public class DynamicBeat extends JFrame {
 	}
 
 	public void screenDraw(Graphics2D g) {
-		g.drawImage(bg, 0, 0, null); // addÇÔ¼ö »ç¿ë½ÃX, ±×Àú º¸¿©ÁÙ ¶§
+		g.drawImage(bg, 0, 0, null); // addí•¨ìˆ˜ ì‚¬ìš©ì‹œX, ê·¸ì € ë³´ì—¬ì¤„ ë•Œ
 		if (isMainScreen) {
 			g.drawImage(selectedImg, 340, 110, null);
 			g.drawImage(titleImg, 340, 50, null);
@@ -352,7 +352,7 @@ public class DynamicBeat extends JFrame {
 		if (isGameScreen) {
 			game.screenDraw(g);
 		}
-		paintComponents(g);// jframe ¾È¿¡ ÀÌ¹ÌÁö¸¦ ±×·ÁÁÖ´Â °ÍÀ» ÀÇ¹Ì (ÁÖ°í °íÁ¤µÇ´Â ÀÌ¹ÌÁö ÀÏ¶§ ÀÌ¿ë, addÇÔ¼ö »ç¿ëÀÌ µÉ °æ¿ì)
+		paintComponents(g);// jframe ì•ˆì— ì´ë¯¸ì§€ë¥¼ ê·¸ë ¤ì£¼ëŠ” ê²ƒì„ ì˜ë¯¸ (ì£¼ê³  ê³ ì •ë˜ëŠ” ì´ë¯¸ì§€ ì¼ë•Œ ì´ìš©, addí•¨ìˆ˜ ì‚¬ìš©ì´ ë  ê²½ìš°)
 		try {
 			Thread.sleep(5);
 		} catch (Exception e) {
@@ -420,9 +420,9 @@ public class DynamicBeat extends JFrame {
 
 	public void enterMain() {
 		isMainScreen = true;
-		bg = new ImageIcon(Main.class.getResource("../images/mainBg.jpg")).getImage(); // È­¸éÀüÈ¯
-		startButton.setVisible(false); // ¹öÆ° Áö¿ì±â
-		quitButton.setVisible(false); // ¹öÆ° Áö¿ì±â
+		bg = new ImageIcon(Main.class.getResource("../images/mainBg.jpg")).getImage(); // í™”ë©´ì „í™˜
+		startButton.setVisible(false); // ë²„íŠ¼ ì§€ìš°ê¸°
+		quitButton.setVisible(false); // ë²„íŠ¼ ì§€ìš°ê¸°
 		leftButton.setVisible(true);
 		rightButton.setVisible(true);
 		easyButton.setVisible(true);

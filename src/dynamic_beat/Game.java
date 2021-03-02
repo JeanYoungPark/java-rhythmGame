@@ -68,8 +68,7 @@ public class Game extends Thread{
 		}
 
 		g.setColor(Color.white);
-		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON); // ÆùÆ®±úÁüÇö»ó
-																											// ¹æÁö
+		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON); // í°íŠ¸ê¹¨ì§í˜„ìƒ
 		g.setFont(new Font("Arial", Font.BOLD, 30));
 		g.drawString(titleName, 20, 702);
 		g.drawString(difficulty, 1190, 702);
@@ -160,7 +159,7 @@ public class Game extends Thread{
 	}
 	
 	@Override
-	public void run() { //¾²·¹µå¸¦ »ó¼Ó¹ŞÀ¸¸é run¸Ş¼Òµå°¡ ½ÇÇà
+	public void run() { //ì“°ë ˆë“œë¥¼ ìƒì†ë°›ìœ¼ë©´ runë©”ì†Œë“œê°€ ì‹¤í–‰
 		dropNotes();
 	}
 	
@@ -170,7 +169,7 @@ public class Game extends Thread{
 	}
 	
 	public void dropNotes() {
-		Beat[] beats = null; //³ëÆ® Âï´Â ºÎºĞ
+		Beat[] beats = null; //ë…¸íŠ¸ ì°ëŠ” ë¶€ë¶„
 		if(titleName.equals("bensound-elevate") && difficulty.equals("Easy")) {
 			int startTime = 8800 - Main.REACH_TIME * 1000;
 			int gaps = 1000;
