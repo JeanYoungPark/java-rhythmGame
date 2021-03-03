@@ -8,7 +8,7 @@ import javazoom.jl.player.Player;
 
 public class Music extends Thread{
 
-		private Player player; //ë¼ì´ë¸ŒëŸ¬ë¦¬
+		private Player player; //¶óÀÌºê·¯¸®
 		private boolean isLoop;
 		private File file;
 		private FileInputStream fis;
@@ -17,9 +17,9 @@ public class Music extends Thread{
 		public Music(String name,boolean isLoop) {
 			try {
 				this.isLoop = isLoop;
-				file = new File(Main.class.getResource("../music/"+name).toURI());//ìŒì•…íŒŒì¼ ê°€ì ¸ì˜¤ê¸°
+				file = new File(Main.class.getResource("/music/"+name).toURI());//À½¾ÇÆÄÀÏ °¡Á®¿À±â
 				fis = new FileInputStream(file);
-				bis = new BufferedInputStream(fis); //ë²„í¼ì— ë‹´ì•„ì„œ ì½ì–´ì˜¨ë‹¤
+				bis = new BufferedInputStream(fis); //¹öÆÛ¿¡ ´ã¾Æ¼­ ÀĞ¾î¿Â´Ù
 				player = new Player(bis);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());

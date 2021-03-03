@@ -6,7 +6,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Note extends Thread{
-	private Image noteImg = new ImageIcon(Main.class.getResource("../images/note.png")).getImage();
+	private Image noteImg = new ImageIcon(Main.class.getResource("/images/note.png")).getImage();
 	private int x,y = 580 - (1000/Main.SLEEP_TIME * Main.NOTE_SPEED) * Main.REACH_TIME;
 	private String noteType;
 	private boolean proceeded = true;
@@ -66,7 +66,7 @@ public class Note extends Thread{
 			while(true) {
 				drop();
 				if(proceeded) {
-					Thread.sleep(Main.SLEEP_TIME);;
+					Thread.sleep(Main.SLEEP_TIME);
 				}else {
 					interrupt();
 					break;

@@ -21,32 +21,32 @@ public class DynamicBeat extends JFrame {
 	private Graphics screenGraphic;
 
 	// 버튼 이미지들
-	private ImageIcon exitBtn = new ImageIcon(Main.class.getResource("../images/exitBtn.png"));
-	private ImageIcon exitBtnOn = new ImageIcon(Main.class.getResource("../images/exitBtnOn.png"));
-	private ImageIcon startBtn = new ImageIcon(Main.class.getResource("../images/startBtn.png"));
-	private ImageIcon startBtnOn = new ImageIcon(Main.class.getResource("../images/startBtnOn.png"));
-	private ImageIcon quitBtn = new ImageIcon(Main.class.getResource("../images/quitBtn.png"));
-	private ImageIcon quitBtnOn = new ImageIcon(Main.class.getResource("../images/quitBtnOn.png"));
+	private ImageIcon exitBtn = new ImageIcon(Main.class.getResource("/images/exitBtn.png"));
+	private ImageIcon exitBtnOn = new ImageIcon(Main.class.getResource("/images/exitBtnOn.png"));
+	private ImageIcon startBtn = new ImageIcon(Main.class.getResource("/images/startBtn.png"));
+	private ImageIcon startBtnOn = new ImageIcon(Main.class.getResource("/images/startBtnOn.png"));
+	private ImageIcon quitBtn = new ImageIcon(Main.class.getResource("/images/quitBtn.png"));
+	private ImageIcon quitBtnOn = new ImageIcon(Main.class.getResource("/images/quitBtnOn.png"));
 
 	// 화살표
-	private ImageIcon leftBtn = new ImageIcon(Main.class.getResource("../images/leftArrow.png"));
-	private ImageIcon leftBtnOn = new ImageIcon(Main.class.getResource("../images/leftArrowOn.png"));
-	private ImageIcon rightBtn = new ImageIcon(Main.class.getResource("../images/rightArrow.png"));
-	private ImageIcon rightBtnOn = new ImageIcon(Main.class.getResource("../images/rightArrowOn.png"));
+	private ImageIcon leftBtn = new ImageIcon(Main.class.getResource("/images/leftArrow.png"));
+	private ImageIcon leftBtnOn = new ImageIcon(Main.class.getResource("/images/leftArrowOn.png"));
+	private ImageIcon rightBtn = new ImageIcon(Main.class.getResource("/images/rightArrow.png"));
+	private ImageIcon rightBtnOn = new ImageIcon(Main.class.getResource("/images/rightArrowOn.png"));
 
 	// 게림 난이도 버튼
-	private ImageIcon easyBtn = new ImageIcon(Main.class.getResource("../images/easyBtn.png"));
-	private ImageIcon easyBtnOn = new ImageIcon(Main.class.getResource("../images/easyBtnOn.png"));
-	private ImageIcon hardBtn = new ImageIcon(Main.class.getResource("../images/hardBtn.png"));
-	private ImageIcon hardBtnOn = new ImageIcon(Main.class.getResource("../images/hardBtnOn.png"));
+	private ImageIcon easyBtn = new ImageIcon(Main.class.getResource("/images/easyBtn.png"));
+	private ImageIcon easyBtnOn = new ImageIcon(Main.class.getResource("/images/easyBtnOn.png"));
+	private ImageIcon hardBtn = new ImageIcon(Main.class.getResource("/images/hardBtn.png"));
+	private ImageIcon hardBtnOn = new ImageIcon(Main.class.getResource("/images/hardBtnOn.png"));
 
 	// 뒤로가기 버튼
-	private ImageIcon backBtn = new ImageIcon(Main.class.getResource("../images/backBtn.png"));
-	private ImageIcon backBtnOn = new ImageIcon(Main.class.getResource("../images/backBtnOn.png"));
+	private ImageIcon backBtn = new ImageIcon(Main.class.getResource("/images/backBtn.png"));
+	private ImageIcon backBtnOn = new ImageIcon(Main.class.getResource("/images/backBtnOn.png"));
 
 	
-	private Image bg = new ImageIcon(Main.class.getResource("../images/introBg.jpg")).getImage();
-	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png")));
+	private Image bg = new ImageIcon(Main.class.getResource("/images/introBg.jpg")).getImage();
+	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("/images/menuBar.png")));
 	private JButton exitButton = new JButton(exitBtn);
 	private JButton startButton = new JButton(startBtn);
 	private JButton quitButton = new JButton(quitBtn);
@@ -365,9 +365,9 @@ public class DynamicBeat extends JFrame {
 		if (selectedMusic != null) {
 			selectedMusic.close();
 		}
-		titleImg = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getTitleImage()))
+		titleImg = new ImageIcon(Main.class.getResource("/images/" + trackList.get(nowSelected).getTitleImage()))
 				.getImage();
-		selectedImg = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getStartImage()))
+		selectedImg = new ImageIcon(Main.class.getResource("/images/" + trackList.get(nowSelected).getStartImage()))
 				.getImage();
 		selectedMusic = new Music(trackList.get(nowSelected).getStartMusic(), true);
 		selectedMusic.start();
@@ -398,7 +398,7 @@ public class DynamicBeat extends JFrame {
 		easyButton.setVisible(false);
 		hardButton.setVisible(false);
 		backButton.setVisible(true);
-		bg = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage())).getImage();
+		bg = new ImageIcon(Main.class.getResource("/images/" + trackList.get(nowSelected).getGameImage())).getImage();
 		isGameScreen = true;
 		game = new Game(trackList.get(nowSelected).getTitleName(),difficulty,trackList.get(nowSelected).getGameMusic());
 		game.start();
@@ -412,7 +412,7 @@ public class DynamicBeat extends JFrame {
 		easyButton.setVisible(true);
 		hardButton.setVisible(true);
 		backButton.setVisible(false);
-		bg = new ImageIcon(Main.class.getResource("../images/mainBg.jpg")).getImage();
+		bg = new ImageIcon(Main.class.getResource("/images/mainBg.jpg")).getImage();
 		selectTrack(nowSelected);
 		isGameScreen = false;
 		game.close();
@@ -420,7 +420,7 @@ public class DynamicBeat extends JFrame {
 
 	public void enterMain() {
 		isMainScreen = true;
-		bg = new ImageIcon(Main.class.getResource("../images/mainBg.jpg")).getImage(); // 화면전환
+		bg = new ImageIcon(Main.class.getResource("/images/mainBg.jpg")).getImage(); // 화면전환
 		startButton.setVisible(false); // 버튼 지우기
 		quitButton.setVisible(false); // 버튼 지우기
 		leftButton.setVisible(true);
